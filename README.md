@@ -1,16 +1,18 @@
 
-# TODO Blast
+# Blast!
 
-- middleman backend compilation
+## TODO
 
-- single HTML page with a full-screen canvas
-- World
-  - Arena
-  - Spaceships
-  - Projectiles
+- [x] Build with Makefile
+- [ ] Vendor matter-js
+- [ ] single HTML page with a full-screen canvas
+- [ ] World
+  - [ ] Arena
+  - [ ] Spaceships
+  - [ ] Projectiles
 
-- Viewport zooms to fit bounding box of players
-- Spaceships
+- [ ] Viewport zooms to fit bounding box of players
+- [ ] Spaceships
   - smaller
     - more agile (less momentum, faster acceleration, easier to manouvre)
     - less firepower
@@ -19,3 +21,7 @@
     - less agile (greater momentum, slower acceleration, harder to manouvre)
     - more firepower
     - can take greater damage
+
+- [ ] Network play
+
+ can take greater damage
