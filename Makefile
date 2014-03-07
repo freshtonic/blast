@@ -3,10 +3,10 @@ COFFEE = $(shell find src -name \*.coffee | grep -v bin)
 
 JS = $(subst src, dist, $(addsuffix .js, $(basename $(COFFEE))))
 
-all: blast.js
-
 dist/blast.js: $(JS)
-	@cat $(JS) > $@
+	cat $(JS) > $@
+
+all: blast.js
 
 dist/%.js: src/%.coffee
 	@echo Compiling $< to $@
