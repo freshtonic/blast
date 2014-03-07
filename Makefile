@@ -3,8 +3,10 @@ COFFEE = $(shell find src -name \*.coffee | grep -v bin)
 
 JS = $(subst src, dist, $(addsuffix .js, $(basename $(COFFEE))))
 
-dist/blast.js: $(JS)
-	cat $(JS) > $@
+VENDOR_JS = $(shell find vendor -type f)
+
+dist/blast.js: $(VENDOR_JS) $(JS)
+	@cat $(VENDOR_JS) $(JS) > $@
 
 all: blast.js
 
