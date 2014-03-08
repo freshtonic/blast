@@ -18,7 +18,7 @@ class @SceneManager
     @scene.add(light)
 
     @renderer = new WebGLRenderer(antialias: true, clearColor: 0x0, clearAlpha: 1)
-    @renderer.setSize(innerWidth, innerHeight)
+    @setRendererSize()
     addEventListener('resize', @onResize)
     document.body.appendChild(@renderer.domElement)
 
@@ -31,7 +31,11 @@ class @SceneManager
   render: ->
     @renderer.render(@scene, @camera)
 
+  setRendererSize: ->
+    size = Math.min(innerWidth, innerHeight)
+    @renderer.setSize(size, size)
+
   onResize: =>
     @camera.aspect = innerWidth / innerHeight
     @camera.updateProjectionMatrix()
-    @renderer.setSize(innerWidth, innerHeight)
+    @setRendererSize()
