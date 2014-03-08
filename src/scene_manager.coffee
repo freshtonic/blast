@@ -7,9 +7,7 @@ WebGLRenderer = THREE.WebGLRenderer
 class @SceneManager
 
   constructor: ->
-    halfWidth = innerWidth / 2
-    halfHeight = innerHeight / 2
-    @camera = new OrthographicCamera(-halfWidth, halfWidth, halfHeight, -halfHeight, 1, 2000)
+    @camera = new OrthographicCamera(-500, 500, 500, -500, 1, 2000)
     @camera.position.z = 1000
 
     @scene = new Scene
