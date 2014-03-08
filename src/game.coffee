@@ -1,5 +1,6 @@
 # depends: input_manager
 # depends: physics_manager
+# depends: dummy_ship
 
 class @Game
 
@@ -7,6 +8,9 @@ class @Game
     @scene = new SceneManager
     @physic = new PhysicsManager
     @input = new InputManager
+    @ship = new DummyShip()
+    @scene.add(@ship.mesh)
+    @physic.add(@ship.body)
     @bindInput()
     @animate()
 
@@ -22,6 +26,7 @@ class @Game
     requestAnimationFrame(@animate)
     @processInput()
     @physic.tick()
+    @ship.update()
     @scene.render()
 
   processInput: ->
