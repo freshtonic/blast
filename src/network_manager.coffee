@@ -1,11 +1,11 @@
 class @NetworkManager
 
   constructor: ->
-    socket = io.connect('//'+location.host)
+    @socket = io.connect('//'+location.host)
+    @data = {}
 
-    socket.on 'ship', (data) ->
-      console.log data
+    @socket.on 'state', (data) ->
+      @data = data
 
-    socket.emit 'ship',
-      coords: [0, 0]
-      vector: [100, 100]
+  update: (data) ->
+    @socket.emit 'state', data.body.position

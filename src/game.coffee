@@ -1,7 +1,8 @@
 # depends: input_manager
 # depends: physics_manager
+# depends: network_manager
 # depends: dummy_ship
-# depends: arena 
+# depends: arena
 
 class @Game
 
@@ -13,7 +14,7 @@ class @Game
   constructor: ->
     Game.games.push(@)
     @scene = new SceneManager
-    @physic = new PhysicsManager(@scene)
+    @physic = new PhysicsManager(@)
     @input = new InputManager
     @gameItems = []
     @network = new NetworkManager
@@ -50,5 +51,10 @@ class @Game
 
   update: ->
     object.update(@) for object in @gameItems
+
+  render: =>
+    console.log @network.data
+    @network.update @ship
+    @scene.render()
 
 Matter.MouseConstraint.update = Game.updateAll

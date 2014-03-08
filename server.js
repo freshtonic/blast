@@ -10,10 +10,10 @@ app.use('vendor', express.static(__dirname + '/vendor'));
 server.listen(3000);
 
 io.sockets.on('connection', function (socket) {
-  socket.on('ship', function (data) {
+  socket.on('state', function (data) {
     for (sid in io.sockets.sockets) {
       if (socket.id != sid) {
-        io.sockets.socket(sid, false).emit('ship', data);
+        io.sockets.socket(sid, false).emit('state', data);
       }
     }
   });
