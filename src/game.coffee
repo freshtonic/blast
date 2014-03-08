@@ -1,9 +1,11 @@
 # depends: input_manager
+# depends: physics_manager
 
 class @Game
 
   constructor: ->
     @scene = new SceneManager
+    @physic = new PhysicsManager
     @input = new InputManager
     @bindInput()
     @animate()
@@ -19,6 +21,7 @@ class @Game
   animate: =>
     requestAnimationFrame(@animate)
     @processInput()
+    @physic.tick()
     @scene.render()
 
   processInput: ->
