@@ -1,6 +1,7 @@
 class @Game
 
   constructor: ->
+    @scene = new SceneManager
     @input = new InputManager
     @bindInput()
     @animate()
@@ -16,6 +17,7 @@ class @Game
   animate: =>
     requestAnimationFrame(@animate)
     @processInput()
+    @scene.render()
 
   processInput: ->
     console.log('thrust') if(@input.actions.thrust)
