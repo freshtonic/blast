@@ -1,3 +1,5 @@
+# depends: input_manager
+
 class @Game
 
   constructor: ->

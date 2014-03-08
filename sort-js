@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+for f in $(ls src | sed 's/.coffee//g'); do
+  for dep in $((echo $f); cat "src/$f.coffee" | grep -o -E "depends: .+$" | grep -E -o "[^ ]+$"); do
+    echo -n "dist/$dep.js"
+    echo -n " "
+    echo -n dist/$f.js
+    echo
+  done
+done  | tsort

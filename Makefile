@@ -5,17 +5,20 @@ JS = $(subst src, dist, $(addsuffix .js, $(basename $(COFFEE))))
 
 VENDOR_JS = $(shell find vendor -type f)
 
-dist/blast.js: $(VENDOR_JS) $(JS)
-	@cat $(VENDOR_JS) $(JS) > $@
+dist/concatenation-order.txt: $(JS)
+	@./sort-js > $@
 
-all: blast.js
+dist/blast.js: dist/concatenation-order.txt
+	cat $(shell cat $^) > $@
+
+all: dist/blast.js
+	@echo Done\!
 
 dist/%.js: src/%.coffee
-	@echo Compiling $< to $@
 	@coffee --nodejs --no-deprecation  -o $(subst src, pkg, $(dir $@)) -c $<
 
 clean:
-	@rm -f $(JS)
+	@rm -f $(JS) concatenation-order.txt
 
 .PHONY: clean all
 
