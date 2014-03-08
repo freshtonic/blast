@@ -1,6 +1,7 @@
 # depends: input_manager
 # depends: physics_manager
 # depends: dummy_ship
+# depends: arena 
 
 class @Game
 
@@ -11,11 +12,12 @@ class @Game
     @gameItems = []
     @bindInput()
     @add(new DummyShip)
+    @add(new Arena)
     @animate()
 
   add: (object) ->
-    @scene.add(object.mesh)
-    @physic.add(object.body)
+    @scene.add(object.mesh) if object.mesh
+    @physic.add(object.body) if object.body
     @gameItems.push(object) if object.update
 
   remove: (object) ->
