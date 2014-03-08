@@ -8,11 +8,21 @@ class @Game
     @scene = new SceneManager
     @physic = new PhysicsManager
     @input = new InputManager
-    @ship = new DummyShip()
-    @scene.add(@ship.mesh)
-    @physic.add(@ship.body)
+    @gameItems = []
     @bindInput()
+    @add(new DummyShip)
     @animate()
+
+  add: (object) ->
+    @scene.add(object.mesh)
+    @physic.add(object.body)
+    @gameItems.push(object) if object.update
+
+  remove: (object) ->
+    @scene.remove(object.mesh)
+    @physic.remove(object.body)
+    index = @gameItems.indexOf(object)
+    @gameItems.splice(index, 1) unless index == -1
 
   bindInput: ->
     @input.bind(38, 'thrust')     # up
@@ -26,7 +36,7 @@ class @Game
     requestAnimationFrame(@animate)
     @processInput()
     @physic.tick()
-    @ship.update()
+    object.update(@) for object in @gameItems
     @scene.render()
 
   processInput: ->
