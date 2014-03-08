@@ -1,6 +1,5 @@
 # depends: input_manager
 # depends: physics_manager
-# depends: renderer
 # depends: dummy_ship
 # depends: arena 
 
