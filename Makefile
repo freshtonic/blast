@@ -15,7 +15,7 @@ all: dist/blast.js
 	@echo Done\!
 
 dist/%.js: src/%.coffee
-	@coffee --nodejs --no-deprecation  -o $(subst src, pkg, $(dir $@)) -c $<
+	@coffee --nodejs --no-deprecation  -o $(subst src, dist, $(dir $@)) -c $<
 
 clean:
 	@rm -f $(JS) concatenation-order.txt
