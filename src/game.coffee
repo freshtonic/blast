@@ -10,6 +10,10 @@ class @Game
     @physic = new PhysicsManager
     @input = new InputManager
     @gameItems = []
+    @network = new NetworkManager
+    @ship = new DummyShip()
+    @scene.add(@ship.mesh)
+    @physic.add(@ship.body)
     @bindInput()
     @add(new DummyShip)
     @add(new Arena)
