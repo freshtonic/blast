@@ -3,9 +3,11 @@ World = Matter.World
 
 class @PhysicsManager
 
-  constructor: ->
-    @engine = Engine.create(document.createElement('div'))
+  constructor: (@scene) ->
+    @engine = Engine.create(document.body)
+    @engine.events.render = @scene.render
     @world = @engine.world
+    @world.gravity.y = 0
 
   add: (body) ->
     World.addBody(@world, body)
@@ -13,5 +15,5 @@ class @PhysicsManager
   remove: (body) ->
     @world.bodies.splice(@world.bodies.indexOf(body), 1)
 
-  tick: ->
-    @engine.events.tick(@engine)
+  start: (game) ->
+    Engine.run(@engine)

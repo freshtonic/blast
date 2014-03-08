@@ -7,6 +7,8 @@ WebGLRenderer = THREE.WebGLRenderer
 class @SceneManager
 
   constructor: ->
+    @models = []
+
     @camera = new OrthographicCamera(-500, 500, 500, -500, 1, 2000)
     @camera.position.z = 1000
 
@@ -23,12 +25,15 @@ class @SceneManager
     document.body.appendChild(@renderer.domElement)
 
   add: (model) ->
-    @scene.add(model)
+    @models.push(model) if model.mesh
+    @scene.add(model.mesh || model)
 
   remove: (model) ->
+    @models.splice(@models.indexOf(model), 1)
     @scene.remove(model)
 
-  render: ->
+  render: =>
+    model.update() for model in @models
     @renderer.render(@scene, @camera)
 
   setRendererSize: ->

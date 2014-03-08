@@ -1,13 +1,20 @@
 # depends: input_manager
 # depends: physics_manager
+# depends: renderer
 # depends: dummy_ship
 # depends: arena 
 
 class @Game
 
+  @games: []
+
+  @updateAll: ->
+    game.update() for game in Game.games
+
   constructor: ->
+    Game.games.push(@)
     @scene = new SceneManager
-    @physic = new PhysicsManager
+    @physic = new PhysicsManager(@scene)
     @input = new InputManager
     @gameItems = []
     @network = new NetworkManager
@@ -17,10 +24,14 @@ class @Game
     @bindInput()
     @add(new DummyShip)
     @add(new Arena)
-    @animate()
+    @physic.start()
 
   add: (object) ->
-    @scene.add(object.mesh) if object.mesh
+    if object.body and object.mesh
+      model = new SceneModel(object.mesh, object.body)
+    else
+      model = object.mesh
+    @scene.add(model) if model
     @physic.add(object.body) if object.body
     @gameItems.push(object) if object.update
 
@@ -38,17 +49,7 @@ class @Game
     @input.bind(16, 'secondary')  # shift
     @input.bind(77, 'mute')       # m
 
-  animate: =>
-    requestAnimationFrame(@animate)
-    @processInput()
-    @physic.tick()
+  update: ->
     object.update(@) for object in @gameItems
-    @scene.render()
 
-  processInput: ->
-    console.log('thrust') if(@input.actions.thrust)
-    console.log('right') if(@input.actions.right)
-    console.log('left') if(@input.actions.left)
-    console.log('primary') if(@input.actions.primary)
-    console.log('secondary') if(@input.actions.secondary)
-    console.log('mute') if(@input.actions.mute)
+Matter.MouseConstraint.update = Game.updateAll
