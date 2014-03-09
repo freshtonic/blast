@@ -49,9 +49,10 @@ class @BaseShip
     Body.rotate(@body, -@rotationSpeed)
 
   firePrimary: (game) ->
-    particle = Bodies.circle @body.position.x, @body.position.y, 1 * @primaryGunPower
-    Body.applyForce(particle, @getShipVector(100), @getShipVector(0.00001))
-    particleGeometry = new THREE.CubeGeometry(10, 10, 10)
+    pos = @getShipVector(30)
+    particle = Bodies.circle pos.x + @body.position.x, pos.y + @body.position.y, 5
+    Body.applyForce(particle, @getShipVector(100), @getShipVector(0.001))
+    particleGeometry = new THREE.CubeGeometry(5, 5, 5)
     mat = new THREE.MeshLambertMaterial(color: 0xffff00, ambient: 0x33ff00)
     mesh = new THREE.Mesh(particleGeometry, mat)
     game.add {
