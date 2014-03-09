@@ -32,7 +32,7 @@ class @Game
     else
       model = object.mesh
     @scene.add(model) if model
-    @physic.add(object.body) if object.body
+    @physic.add(object)
     @gameItems.push(object) if object.update
 
   remove: (object) ->

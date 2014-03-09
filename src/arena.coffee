@@ -1,4 +1,6 @@
-
+Body = Matter.Body
+Bodies = Matter.Bodies
+Composite = Matter.Composite
 
 class @Arena
   constructor: ->
@@ -35,5 +37,19 @@ class @Arena
     diamondMesh.rotation.z = Math.PI / 4
     @mesh.add diamondMesh
 
-  update: ->
+    bottomLeft1 = Bodies.rectangle(-380, 490, 200, 20, isStatic: true)
+    bottomLeft2 = Bodies.rectangle(-490, 380, 20, 200, isStatic: true)
+    bottomRigth1 = Bodies.rectangle(380, 490, 200, 20, isStatic: true)
+    bottomRigth2 = Bodies.rectangle(490, 380, 20, 200, isStatic: true)
+    topLeft1 = Bodies.rectangle(-380, -490, 200, 20, isStatic: true)
+    topLeft2 = Bodies.rectangle(-490, -380, 20, 200, isStatic: true)
+    topRigth1 = Bodies.rectangle(380, -490, 200, 20, isStatic: true)
+    topRigth2 = Bodies.rectangle(490, -380, 20, 200, isStatic: true)
+    dimond = Bodies.rectangle(0, 0, 100, 100, isStatic: true)
+    Body.rotate(dimond, Math.PI / 4)
 
+    @composite = Composite.create(bodies: [
+      bottomLeft1, bottomLeft2, bottomRigth1, bottomRigth2,
+      topLeft1, topLeft2, topRigth1, topRigth2,
+      dimond
+    ])

@@ -9,10 +9,13 @@ class @DummyShip
     @thrustPower = 0.0001
     cube = new THREE.CubeGeometry(50, 20, 10)
     mat = new THREE.MeshLambertMaterial(color: 0xff0000, ambient: 0x330000)
-    @mesh = new THREE.Mesh(cube, mat)
-    @body = Bodies.trapezoid(0, 0, 20, 50, 0.5)
+    @ship = new THREE.Mesh(cube, mat)
+    @mesh = new THREE.Object3D()
+    @mesh.add(@ship)
+    @body = Bodies.trapezoid(100, 0, 20, 50, 0.5)
 
   update: (game) ->
+    @ship.rotation.x += 0.1
     @thrust() if game.input.actions.thrust
     @turnRight() if game.input.actions.right
     @turnLeft() if game.input.actions.left

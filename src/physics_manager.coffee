@@ -9,8 +9,9 @@ class @PhysicsManager
     @world = @engine.world
     @world.gravity.y = 0
 
-  add: (body) ->
-    World.addBody(@world, body)
+  add: (model) ->
+    World.addBody(@world, model.body) if model.body
+    World.addComposite(@world, model.composite) if model.composite
 
   remove: (body) ->
     @world.bodies.splice(@world.bodies.indexOf(body), 1)
