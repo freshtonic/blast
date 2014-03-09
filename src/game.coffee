@@ -57,8 +57,7 @@ class @Game
       @enemy ?= @add new BaseShip
         color: 0x00ff00
         ambient: 0x003300
-      @enemy.body.position = data.position
-      @enemy.body.angle = data.angle
+      @enemy.load data
 
     @network.update @ship
     @scene.render()

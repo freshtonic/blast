@@ -1,4 +1,5 @@
 Bodies = Matter.Bodies
+Body = Matter.Body
 
 class @BaseShip
 
@@ -21,16 +22,6 @@ class @BaseShip
     @thrust(game) if game.input.actions.thrust
     @turnRight() if game.input.actions.right
     @turnLeft() if game.input.actions.left
-
-  serialize: ->
-    position: @body.position
-    angle: @body.angle
-
-  turnRight: ->
-    Body.rotate(@body, @rotationSpeed)
-
-  turnLeft: ->
-    Body.rotate(@body, -@rotationSpeed)
 
   getAngle: ->
     angle = @body.angle - Math.PI / 2
@@ -66,3 +57,14 @@ class @BaseShip
       body: particle
     }
 
+  serialize: ->
+    position: @body.position
+    velocity: @body.velocity
+    angle: @body.angle
+
+  load: (data) ->
+    Body.translate @body,
+      x: data.position.x - @body.position.x
+      y: data.position.y - @body.position.y
+    Body.rotate @body, data.angle - @body.angle
+    @body.velocity = data.velocity
