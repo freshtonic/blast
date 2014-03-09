@@ -9,14 +9,14 @@ class @Game
 
   @games: []
 
-  @updateAll: ->
-    game.update() for game in Game.games
+  @updateAllPhysics: ->
+    game.updatePhysics() for game in Game.games
 
   constructor: ->
     Game.games.push(@)
     @scene = new SceneManager
     @partical = new ParticalManager
-    @physic = new PhysicsManager(@)
+    @physics = new PhysicsManager(@)
     @input = new InputManager
     @gameItems = []
     @network = new NetworkManager
@@ -25,7 +25,7 @@ class @Game
     @enemies = {}
     @player = @add(new PlayerShip)
     @add(new Arena)
-    @physic.start()
+    @physics.start()
 
   add: (object) ->
     if object.body and object.mesh
@@ -33,13 +33,13 @@ class @Game
     else
       model = object.mesh
     @scene.add(model) if model
-    @physic.add(object)
+    @physics.add(object)
     @gameItems.push(object) if object.update
     object
 
   remove: (object) ->
     @scene.remove(object.mesh)
-    @physic.remove(object.body)
+    @physics.remove(object.body)
     index = @gameItems.indexOf(object)
     @gameItems.splice(index, 1) unless index == -1
 
@@ -51,7 +51,7 @@ class @Game
     @input.bind(16, 'secondary')  # shift
     @input.bind(77, 'mute')       # toggle sound
 
-  update: ->
+  updatePhysics: ->
     object.update(@) for object in @gameItems
 
   render: =>
@@ -75,5 +75,9 @@ class @Game
         @remove @enemies[id] if @enemies[id]
         delete data[id]
 
-Matter.MouseConstraint.update = Game.updateAll
 
+  updateCollisions: ->
+    if @physics.engine.pairsList.length
+      debugger
+
+Matter.MouseConstraint.update = Game.updateAllPhysics
