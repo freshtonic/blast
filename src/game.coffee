@@ -71,6 +71,10 @@ class @Game
           color: 0x00ff00
           ambient: 0x003300
         @enemies[id].load enemy
+        @enemies[id].firePrimary(@) if enemy.actions.primary
+        @enemies[id].thrust(@) if enemy.actions.thrust
+        @enemies[id].turnRight() if enemy.actions.right
+        @enemies[id].turnLeft() if enemy.actions.left
       else
         @remove @enemies[id] if @enemies[id]
         delete data[id]
