@@ -1,5 +1,7 @@
-Bodies = Matter.Bodies
 Body = Matter.Body
+Bodies = Matter.Bodies
+Vector3 = THREE.Vector3
+Color = THREE.Color
 
 class @BaseShip
 
@@ -18,27 +20,27 @@ class @BaseShip
 
   update: (game) ->
     @ship.rotation.x += 0.1
-    @firePrimary(game) if game.input.actions.primary
-    @thrust(game) if game.input.actions.thrust
-    @turnRight() if game.input.actions.right
-    @turnLeft() if game.input.actions.left
 
   getAngle: ->
     angle = @body.angle - Math.PI / 2
 
-  getDirectionalForce: (proportion) ->
+  getShipVector: (offset) ->
     angle = @getAngle()
     {
-      x: proportion * Math.cos(angle)
-      y: proportion * Math.sin(angle)
+      x: offset * Math.cos(angle)
+      y: offset * Math.sin(angle)
     }
 
+  toThreeVector: (pos) ->
+    vec = new Vector3(pos.x, pos.y, 0)
+    vec.y *= -1
+    vec
+
   thrust: (game) ->
-    force = @getDirectionalForce(@thrustPower)
-    Body.applyForce(@body, {x: 0, y: 0}, force)
-    position = new Vector3(@body.position.x, -@body.position.y, 0)
-    thrust = new Vector3(-force.x * 10000, force.y * 10000, 0)
-    game.partical.cone(position, thrust, new Color(0x154492), 15)
+    Body.applyForce(@body, {x: 0, y: 0}, @getShipVector(@thrustPower))
+    offset = @toThreeVector(@getShipVector(-30))
+    position = @toThreeVector(@body.position)
+    game.partical.cone(position.add(offset), @toThreeVector(@getShipVector(-3)), new Color(0x154492), 15)
 
   turnRight: ->
     Body.rotate(@body, @rotationSpeed)
@@ -48,7 +50,7 @@ class @BaseShip
 
   firePrimary: (game) ->
     particle = Bodies.circle @body.position.x, @body.position.y, 1 * @primaryGunPower
-    Body.applyForce(particle, @getDirectionalForce(100), @getDirectionalForce(0.00001))
+    Body.applyForce(particle, @getShipVector(100), @getShipVector(0.00001))
     particleGeometry = new THREE.CubeGeometry(10, 10, 10)
     mat = new THREE.MeshLambertMaterial(color: 0xffff00, ambient: 0x33ff00)
     mesh = new THREE.Mesh(particleGeometry, mat)
