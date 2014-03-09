@@ -55,18 +55,25 @@ class @Game
     object.update(@) for object in @gameItems
 
   render: =>
-    for id of @network.data
-      if data = @network.data[id]
+    @load @network.data
+    @network.update @
+    @scene.render()
+
+  serialize: ->
+    data = @player.serialize()
+    data['actions'] = @input.actions
+    data
+
+  load: (data) ->
+    for id of data
+      if enemy = data[id]
         @enemies[id] ?= @add new EnemyShip
           color: 0x00ff00
           ambient: 0x003300
-        @enemies[id].load data
+        @enemies[id].load enemy
       else
         @remove @enemies[id] if @enemies[id]
-        delete @network.data[id]
-
-    @network.update @player
-    @scene.render()
+        delete data[id]
 
 Matter.MouseConstraint.update = Game.updateAll
 
