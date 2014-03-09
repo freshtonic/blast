@@ -1,7 +1,7 @@
 # depends: input_manager
 # depends: physics_manager
 # depends: network_manager
-# depends: base_ship
+# depends: player_ship
 # depends: arena
 
 class @Game
@@ -21,7 +21,7 @@ class @Game
     @network = new NetworkManager
     @bindInput()
     @add(@partical)
-    @ship = @add(new BaseShip)
+    @ship = @add(new PlayerShip)
     @add(new Arena)
     @physic.start()
 
@@ -54,13 +54,9 @@ class @Game
 
   render: =>
     if data = @network.data
-      unless @enemy
-        @enemy = @add new BaseShip
-        @enemy.update = ->
-          @ship.rotation.x += 0.1
-          @mesh.position.set(@body.position.x, -@body.position.y, 0)
-          @mesh.rotation.z = @body.angle
-
+      @enemy ?= @add new BaseShip
+        color: 0x00ff00
+        ambient: 0x003300
       @enemy.body.position = data.position
       @enemy.body.angle = data.angle
 
