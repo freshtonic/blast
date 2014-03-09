@@ -7,5 +7,8 @@ class @NetworkManager
     @socket.on 'state', (data) =>
       @data[data.id] = data
 
+    @socket.on 'disconnect', (id) =>
+      @data[id] = null
+
   update: (data) ->
     @socket.emit 'state', data.serialize()

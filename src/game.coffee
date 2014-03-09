@@ -55,10 +55,14 @@ class @Game
 
   render: =>
     for id of @network.data
-      @enemies[id] ?= @add new BaseShip
-        color: 0x00ff00
-        ambient: 0x003300
-      @enemies[id].load @network.data[id]
+      if data = @network.data[id]
+        @enemies[id] ?= @add new BaseShip
+          color: 0x00ff00
+          ambient: 0x003300
+        @enemies[id].load data
+      else
+        @remove @enemies[id]
+        delete @network.data[id]
 
     @network.update @player
     @scene.render()
