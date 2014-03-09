@@ -24,6 +24,10 @@ class @BaseShip
 
   update: (game) ->
     @ship.rotation.x += 0.1
+    @firePrimary(game) if game.input.actions.primary
+    @thrust(game) if game.input.actions.thrust
+    @turnRight() if game.input.actions.right
+    @turnLeft() if game.input.actions.left
 
   getAngle: ->
     angle = @body.angle - Math.PI / 2
@@ -40,6 +44,7 @@ class @BaseShip
     offset = toThreeVector(@getShipVector(-30))
     position = toThreeVector(@body.position)
     game.partical.cone(position.add(offset), toThreeVector(@getShipVector(-3)), new Color(0x154492), 15)
+    game.playSound 'thrust'
 
   turnRight: ->
     Body.rotate(@body, @rotationSpeed)
@@ -56,6 +61,7 @@ class @BaseShip
     pos.y += @body.position.y
     force = @getShipVector(0.005)
     game.add new Projectile(pos, force, game)
+    game.playSound 'firePrimary'
 
   serialize: ->
     position: @body.position
@@ -68,3 +74,4 @@ class @BaseShip
       y: data.position.y - @body.position.y
     Body.rotate @body, data.angle - @body.angle
     @body.velocity = data.velocity
+

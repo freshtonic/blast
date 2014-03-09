@@ -26,6 +26,23 @@ class @Game
     @player = @add(new PlayerShip)
     @add(new Arena)
     @physics.start()
+    @loadSounds()
+
+  sounds:
+    thrust: ['thrust1.wav']
+    firePrimary: ['shoot1.wav']
+    hit: ['explosion1.wav']
+
+  playSound: (sound) ->
+    sounds = @sounds[sound]
+    file = sounds[parseInt(Math.random() * sounds.length)]
+    SoundManager.playSound "sounds/#{file}"
+
+  loadSounds: ->
+    for sound, files of @sounds
+      for file in files
+        path = "sounds/#{file}"
+        SoundManager.loadAsync path 
 
   add: (object) ->
     if object.body and object.mesh
