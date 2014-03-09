@@ -74,6 +74,7 @@ class @Game
   render: =>
     @load @network.data
     @network.update @
+    @updateCollisions()
     @scene.render()
 
   serialize: ->

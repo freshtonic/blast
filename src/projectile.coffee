@@ -16,3 +16,4 @@ class @Projectile
     @dead = true
     game.partical.explode(toThreeVector(@body.position), new THREE.Color(0xdd380c))
     game.remove(@)
+    game.playSound 'hit'
