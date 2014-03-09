@@ -14,14 +14,13 @@ class @Game
   constructor: ->
     Game.games.push(@)
     @scene = new SceneManager
+    @partical = new ParticalManager
     @physic = new PhysicsManager(@)
     @input = new InputManager
     @gameItems = []
     @network = new NetworkManager
-    @ship = new BaseShip()
-    @scene.add(@ship.mesh)
-    @physic.add(@ship.body)
     @bindInput()
+    @add(@partical)
     @add(new BaseShip)
     @add(new Arena)
     @physic.start()
@@ -47,13 +46,12 @@ class @Game
     @input.bind(37, 'left')       # left
     @input.bind(32, 'primary')    # space
     @input.bind(16, 'secondary')  # shift
-    @input.bind(77, 'mute')       # m
+    @input.bind(77, 'mute')       # toggle sound
 
   update: ->
     object.update(@) for object in @gameItems
 
   render: =>
-    console.log @network.data
     @network.update @ship
     @scene.render()
 
