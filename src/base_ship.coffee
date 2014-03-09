@@ -41,3 +41,7 @@ class @BaseShip
 
   turnLeft: ->
     Body.rotate(@body, -@rotationSpeed)
+
+  serialize: ->
+    position: @body.position
+    angle: @body.angle

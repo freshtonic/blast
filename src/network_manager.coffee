@@ -2,10 +2,10 @@ class @NetworkManager
 
   constructor: ->
     @socket = io.connect('//'+location.host)
-    @data = {}
+    @data = null
 
-    @socket.on 'state', (data) ->
+    @socket.on 'state', (data) =>
       @data = data
 
   update: (data) ->
-    @socket.emit 'state', data.body.position
+    @socket.emit 'state', data.serialize()

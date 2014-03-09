@@ -21,7 +21,7 @@ class @Game
     @network = new NetworkManager
     @bindInput()
     @add(@partical)
-    @add(new BaseShip)
+    @ship = @add(new BaseShip)
     @add(new Arena)
     @physic.start()
 
@@ -33,6 +33,7 @@ class @Game
     @scene.add(model) if model
     @physic.add(object)
     @gameItems.push(object) if object.update
+    object
 
   remove: (object) ->
     @scene.remove(object.mesh)
@@ -52,6 +53,17 @@ class @Game
     object.update(@) for object in @gameItems
 
   render: =>
+    if data = @network.data
+      unless @enemy
+        @enemy = @add new BaseShip
+        @enemy.update = ->
+          @ship.rotation.x += 0.1
+          @mesh.position.set(@body.position.x, -@body.position.y, 0)
+          @mesh.rotation.z = @body.angle
+
+      @enemy.body.position = data.position
+      @enemy.body.angle = data.angle
+
     @network.update @ship
     @scene.render()
 
