@@ -4,7 +4,7 @@ World = Matter.World
 class @PhysicsManager
 
   constructor: (@game) ->
-    @engine = Engine.create(document.body)
+    @engine = Engine.create(document.createElement('div'))
     @engine.events.render = @game.render
     @world = @engine.world
     @world.gravity.y = 0
