@@ -3,6 +3,12 @@ OrthographicCamera = THREE.OrthographicCamera
 AmbientLight = THREE.AmbientLight
 DirectionalLight = THREE.DirectionalLight
 WebGLRenderer = THREE.WebGLRenderer
+Vector3 = THREE.Vector3
+
+@toThreeVector = (pos) ->
+    vec = new Vector3(pos.x, pos.y, 0)
+    vec.y *= -1
+    vec
 
 class @SceneManager
 

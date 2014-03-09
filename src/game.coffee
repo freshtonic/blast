@@ -77,7 +77,9 @@ class @Game
 
 
   updateCollisions: ->
-    if @physics.engine.pairsList.length
-      debugger
+    for impact in @physics.engine.pairsList
+      bodies = [impact.collision.bodyA, impact.collision.bodyB]
+      for body in bodies
+        body.owner.explode(@) if body.owner?.explode
 
 Matter.MouseConstraint.update = Game.updateAllPhysics
