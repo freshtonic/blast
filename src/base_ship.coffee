@@ -2,7 +2,7 @@ Composite = Matter.Composite
 Bodies = Matter.Bodies
 Body = Matter.Body
 
-class @DummyShip
+class @BaseShip
 
   constructor: ->
     @rotationSpeed = 0.1

@@ -1,7 +1,7 @@
 # depends: input_manager
 # depends: physics_manager
 # depends: network_manager
-# depends: dummy_ship
+# depends: base_ship
 # depends: arena
 
 class @Game
@@ -18,11 +18,11 @@ class @Game
     @input = new InputManager
     @gameItems = []
     @network = new NetworkManager
-    @ship = new DummyShip()
+    @ship = new BaseShip()
     @scene.add(@ship.mesh)
     @physic.add(@ship.body)
     @bindInput()
-    @add(new DummyShip)
+    @add(new BaseShip)
     @add(new Arena)
     @physic.start()
 
