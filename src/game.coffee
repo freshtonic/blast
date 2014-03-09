@@ -21,7 +21,8 @@ class @Game
     @network = new NetworkManager
     @bindInput()
     @add(@partical)
-    @ship = @add(new PlayerShip)
+    @enemies = {}
+    @player = @add(new PlayerShip)
     @add(new Arena)
     @physic.start()
 
@@ -53,13 +54,13 @@ class @Game
     object.update(@) for object in @gameItems
 
   render: =>
-    if data = @network.data
-      @enemy ?= @add new BaseShip
+    for id of @network.data
+      @enemies[id] ?= @add new BaseShip
         color: 0x00ff00
         ambient: 0x003300
-      @enemy.load data
+      @enemies[id].load @network.data[id]
 
-    @network.update @ship
+    @network.update @player
     @scene.render()
 
 Matter.MouseConstraint.update = Game.updateAll

@@ -11,6 +11,7 @@ server.listen(3000);
 
 io.sockets.on('connection', function (socket) {
   socket.on('state', function (data) {
+    data['id'] = socket.id;
     for (sid in io.sockets.sockets) {
       if (socket.id != sid) {
         io.sockets.socket(sid, false).emit('state', data);
