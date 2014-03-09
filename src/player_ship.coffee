@@ -8,3 +8,8 @@ class @PlayerShip extends @BaseShip
     @turnRight() if game.input.actions.right
     @turnLeft() if game.input.actions.left
     super
+
+  serialize: ->
+    position: @body.position
+    velocity: @body.velocity
+    angle: @body.angle

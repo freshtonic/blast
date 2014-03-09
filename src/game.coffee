@@ -2,6 +2,7 @@
 # depends: physics_manager
 # depends: network_manager
 # depends: player_ship
+# depends: enemy_ship
 # depends: arena
 
 class @Game
@@ -56,12 +57,12 @@ class @Game
   render: =>
     for id of @network.data
       if data = @network.data[id]
-        @enemies[id] ?= @add new BaseShip
+        @enemies[id] ?= @add new EnemyShip
           color: 0x00ff00
           ambient: 0x003300
         @enemies[id].load data
       else
-        @remove @enemies[id]
+        @remove @enemies[id] if @enemies[id]
         delete @network.data[id]
 
     @network.update @player
