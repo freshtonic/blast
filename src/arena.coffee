@@ -4,7 +4,7 @@ Composite = Matter.Composite
 
 class @Arena
   constructor: ->
-    material = new THREE.MeshLambertMaterial(color: 0xff0000, ambient: 0x330000)
+    material = new THREE.MeshLambertMaterial(color: 0xffff00, ambient: 0x33ff00)
 
     @mesh = new THREE.Object3D()
 

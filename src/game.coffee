@@ -64,3 +64,4 @@ class @Game
     @scene.render()
 
 Matter.MouseConstraint.update = Game.updateAll
+

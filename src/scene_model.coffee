@@ -21,4 +21,4 @@ class @SceneModel
     @wrap('y')
     @mesh.position.set(@body.position.x, -@body.position.y, 0)
     @mesh.rotation.z = -@body.angle - Math.PI/2
-    
+
