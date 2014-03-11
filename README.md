@@ -1,27 +1,21 @@
 
 # Blast!
 
-## TODO
+Blast is the embryonic beginnings of a top down arena-style multiplayer
+spaceship battle, inspired by Bratwurst on the Amiga 500.
 
-- [x] Build with Makefile
-- [ ] Vendor matter-js
-- [ ] single HTML page with a full-screen canvas
-- [ ] World
-  - [ ] Arena
-  - [ ] Spaceships
-  - [ ] Projectiles
+It's an HTML 5 web app that uses matter.js for physics and three.js for
+rendering. 
 
-- [ ] Viewport zooms to fit bounding box of players
-- [ ] Spaceships
-  - smaller
-    - more agile (less momentum, faster acceleration, easier to manouvre)
-    - less firepower
-    - can take less damage
-  - bigger
-    - less agile (greater momentum, slower acceleration, harder to manouvre)
-    - more firepower
-    - can take greater damage
+A serverside Node app manages the network comms for multiplayer.
 
-- [ ] Network play
+It's basic and buggy right now, but contributions are most welcome!
 
- can take greater damage
+Blast! was conceived of and hacked on at RailsCamp NZ 2014 at Mt. Cheeseman by
+James Sadler (@freshtonic), Matt Wratt (@mwratt) and Ben Tillman (@warp), and in
+true RailsCamp tradition, there's not a single shred of Ruby or Rails in it!
+
+## License
+
+Blast! is released under the [MIT License](http://www.opensource.org/licenses/MIT).
+
